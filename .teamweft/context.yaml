@@ -1,0 +1,46 @@
+# 在 Main Repo 的目标分支提交此文件；平台只读取并校验。
+# glob: * 匹配段内字符，? 匹配单字符，** 匹配任意层目录。
+schema_version: 1
+sources:
+  qa-test:
+    documents:
+      - README.md
+      - AGENTS.md
+      - docs/**/*.md
+    code:
+      - src/**
+    exclude:
+      - "**/node_modules/**"
+      - "**/.git/**"
+      - "**/dist/**"
+      - "**/.env*"
+      - context/generated/**
+guidance:
+  - standards/**/*.md
+  - decisions/**/*.md
+summaries:
+  categories:
+    - navigation
+    - project_overview
+    - architecture
+    - source_index
+  language: zh-CN
+  requirements:
+    - 保留来源仓库、相对路径和固定版本；区分人工规范与推断。
+  projects:
+    - id: workspace
+      title: Workspace
+      repository: qa-test
+      paths:
+        - README.md
+        - docs/**
+      modules: []
+generation:
+  outputs:
+    - path: context/generated/index.md
+      template: navigation
+    - path: context/generated/projects/workspace/overview.md
+      template: project_overview
+      project: workspace
+    - path: context/generated/sources.md
+      template: source_index
